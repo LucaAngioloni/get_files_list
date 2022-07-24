@@ -2,20 +2,28 @@
 
 Python package that provides a utility function to recursively get files that match a pattern.
 
+## Installation
+
+Install using pip:
+
+```bash
+pip install get_files_list
+```
+
 ## Usage
 
 Example of this package usage in a folder with the following structure:
 
 ```txt
- ├──         LICENSE
- ├──         README.md
- ├──         deploy.sh
- └──         get_files_list/
- │  ├────         __init__.py
- │  └────         get_dir_content.py
- ├──         requirements.in
- ├──         requirements.txt
- └──         setup.py
+ ├──      LICENSE
+ ├──      README.md
+ ├──      deploy.sh
+ └──      get_files_list/
+ │  ├────      __init__.py
+ │  └────      get_dir_content.py
+ ├──      requirements.in
+ ├──      requirements.txt
+ └──      setup.py
 ```
 
 The following code:
@@ -96,6 +104,8 @@ Print every file that is not a Python file
 ./deploy.sh
 ./requirements.in
 ```
+
+### Generator
 
 `get_dir_content` is a Python *generator* so the following code would not work:
 
