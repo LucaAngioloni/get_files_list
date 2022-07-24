@@ -1,4 +1,4 @@
-# get_files
+# Get Files List
 
 Python package that provides a utility function to recursively get files that match a pattern.
 
@@ -10,7 +10,7 @@ Example of this package usage in a folder with the following structure:
  ├──         LICENSE
  ├──         README.md
  ├──         deploy.sh
- └──         get_files/
+ └──         get_files_list/
  │  ├────         __init__.py
  │  └────         get_dir_content.py
  ├──         requirements.in
@@ -21,7 +21,7 @@ Example of this package usage in a folder with the following structure:
 The following code:
 
 ```python
-from get_files import get_dir_content
+from get_files_list import get_dir_content
 
 # Print every file
 print("Print every file\n")
@@ -56,8 +56,8 @@ Print every file
 
 ./LICENSE
 ./requirements.txt
-./get_files/get_dir_content.py
-./get_files/__init__.py
+./get_files_list/get_dir_content.py
+./get_files_list/__init__.py
 ./README.md
 ./setup.py
 ./deploy.sh
@@ -66,15 +66,15 @@ Print every file
 
 Print every python file
 
-./get_files/get_dir_content.py
-./get_files/__init__.py
+./get_files_list/get_dir_content.py
+./get_files_list/__init__.py
 ./setup.py
 
 
 Print every python file without the prepended folder name
 
-get_files/get_dir_content.py
-get_files/__init__.py
+get_files_list/get_dir_content.py
+get_files_list/__init__.py
 setup.py
 
 
@@ -100,7 +100,7 @@ Print every file that is not a Python file
 `get_dir_content` is a Python *generator* so the following code would not work:
 
 ```python
-from get_files import get_dir_content
+from get_files_list import get_dir_content
 
 num_py_files = len(get_dir_content("./", pattern="*.py"))
 # TypeError: object of type 'generator' has no len()

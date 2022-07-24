@@ -24,17 +24,18 @@ def get_version(rel_path):
 
 
 setup(
-    name='get_files',
-    version=get_version("get_files/__init__.py"),
+    name='get_files_list',
+    version=get_version("get_files_list/__init__.py"),
     description='Python package that provides a utility function to recursively get files that match a pattern',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/LucaAngioloni/get_files',
+    url='https://github.com/LucaAngioloni/get_files_list',
     author='Luca Angioloni',
     author_email='lucaangioloni@gmail.com',
     license='MIT License',
-    packages=['get_files'],
-    keywords=["files", "get_files", "recursive", "pattern", "match"],
+    packages=['get_files_list'],
+    keywords=["files", "get_files_list", "recursive",
+              "pattern", "match", "file list"],
     classifiers=[
         'Intended Audience :: Developers',
         "Intended Audience :: Other Audience",
