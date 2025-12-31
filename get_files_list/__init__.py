@@ -6,5 +6,5 @@ Python package that provides a utility function to recursively get files that ma
 
 from .get_dir_content import get_dir_content
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 __author__ = "Luca Angioloni"
