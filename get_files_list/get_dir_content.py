@@ -1,24 +1,36 @@
 from __future__ import annotations
-import os
+
 import fnmatch
-from typing import Generator
+import os
+from typing import Generator, Sequence
 
 
-def _get_dir_content(path, include_folders, recursive):
-    entries = os.listdir(path)
+def _get_dir_content(
+    path: str, include_folders: bool, recursive: bool
+) -> Generator[str, None, None]:
+    entries: list[str] = os.listdir(path)
     for entry in entries:
         entry_with_path = os.path.join(path, entry)
         if os.path.isdir(entry_with_path):
             if include_folders:
                 yield entry_with_path
             if recursive:
-                for sub_entry in _get_dir_content(entry_with_path, include_folders, recursive):
+                for sub_entry in _get_dir_content(
+                    entry_with_path, include_folders, recursive
+                ):
                     yield sub_entry
         else:
             yield entry_with_path
 
 
-def get_dir_content(path: str, include_folders: bool = False, recursive: bool = True, prepend_folder_name: bool = True, pattern: str | list | None = None, exclude_pattern: str | list | None = None) -> Generator[str, None, None]:
+def get_dir_content(
+    path: str,
+    include_folders: bool = False,
+    recursive: bool = True,
+    prepend_folder_name: bool = True,
+    pattern: str | Sequence[str] | None = None,
+    exclude_pattern: str | Sequence[str] | None = None,
+) -> Generator[str, None, None]:
     """Function that recursively gets files that match a pattern in a given directory.
 
     Args:
@@ -32,12 +44,25 @@ def get_dir_content(path: str, include_folders: bool = False, recursive: bool = 
     Yields:
         str: A file path.
     """
-    path_len = len(path) + (len(os.path.sep)
-                            if not path.endswith(os.path.sep) else 0)
-    if isinstance(pattern, str):
-        pattern = [pattern]
-    if isinstance(exclude_pattern, str):
-        exclude_pattern = [exclude_pattern]
+    path_len = len(path) + (len(os.path.sep) if not path.endswith(os.path.sep) else 0)
+
+    if pattern is None:
+        patterns: Sequence[str] | None = None
+    elif isinstance(pattern, str):
+        patterns = [pattern]
+    else:
+        patterns = pattern
+
+    if exclude_pattern is None:
+        exclude_patterns: Sequence[str] | None = None
+    elif isinstance(exclude_pattern, str):
+        exclude_patterns = [exclude_pattern]
+    else:
+        exclude_patterns = exclude_pattern
+
     for item in _get_dir_content(path, include_folders, recursive):
-        if (pattern is None or any([fnmatch.fnmatch(item, p) for p in pattern])) and (exclude_pattern is None or not any([fnmatch.fnmatch(item, ep) for ep in exclude_pattern])):
+        if (patterns is None or any(fnmatch.fnmatch(item, p) for p in patterns)) and (
+            exclude_patterns is None
+            or not any(fnmatch.fnmatch(item, ep) for ep in exclude_patterns)
+        ):
             yield item if prepend_folder_name else item[path_len:]
